@@ -27,14 +27,14 @@ testSubject <- read.table(paste(dataDir,"/test/subject_test.txt", sep=""))
 colnames(features) <- c("index", "featureName")
 
 # add descriptive names to featureName Values
-features$featureName <- gsub('Acc',"Acceleration",features$featureName)
-features$featureName <- gsub('Gyro',"AngularVelocity",features$featureName)
-features$featureName <- gsub('Jerk',"JerkSignal",features$featureName)
-features$featureName <- gsub('Mag',"Magnitude",features$featureName)
 features$featureName <- gsub('^t',"TimeDomain.",features$featureName)
 features$featureName <- gsub('^f',"FrequencyDomain.",features$featureName)
 features$featureName <- gsub('-mean',".Mean",features$featureName)
 features$featureName <- gsub('-std',".StandardDeviation",features$featureName)
+features$featureName <- gsub('Acc',"Acceleration",features$featureName)
+features$featureName <- gsub('Gyro',"AngularVelocity",features$featureName)
+features$featureName <- gsub('Jerk',"JerkSignal",features$featureName)
+features$featureName <- gsub('Mag',"Magnitude",features$featureName)
 
 colnames(activities) <- c("activityId", "activityName")
 
