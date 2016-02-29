@@ -25,11 +25,16 @@ The following files are also available for the train and test data. Their descri
 
 ## Data Transformations
 * Read data from the files specified above into data frames. The following variables store the data:
-  * activities - activity_labels.txt
-  * features - features.txt
-  * trainX - X_train.txt
-  * trainY - Y_train.txt
-  * trainSubject - subject_train.txt
-  * testX - X_test.txt
-  * testY - Y_test.txt
-  * testSubject - subject_test.txt
+  * **activities** - activity_labels.txt
+  * **features** - features.txt
+  * **trainX** - X_train.txt
+  * **trainY** - Y_train.txt
+  * **trainSubject** - subject_train.txt
+  * **testX** - X_test.txt
+  * **testY** - Y_test.txt
+  * **testSubject** - subject_test.txt
+* Apply meaningful column names to each data frame. Given that the values in the features dataframe will be used used as column names for the **trainX** and **trainY**, update the values to be more meaningful before they are set as column names on those data frames.
+* Replace the activity ids in **trainY** and **testY** with activity names gleaned from **activities** data frame.
+* Create a column index vector **meanAndStdMeasurementCols** that identifies all columns that represent mean and standard deviation measurements. Use this vector to subset the **trainX** and **testX** data frames.
+* Bind columns from the transformed **test**(*trainX*, *trainY*, *trainSubject*) and **train**(*testX*, *testY*, *testSubject*) data frames to create **testData** and **trainingData** dataframes. Bind the rows from **testData** and **trainingData** data frames to create a consolidated data frame **finalDataSet**
+* Create a tidy data frame **tidyData1** with the average of each measurement column for each activity and each subject from **finalDataSet**
