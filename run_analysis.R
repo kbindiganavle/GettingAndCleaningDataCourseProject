@@ -25,6 +25,17 @@ testSubject <- read.table(paste(dataDir,"/test/subject_test.txt", sep=""))
 # Requirement 4: label the data sets with descriptive variable names.
 ##########################################################################
 colnames(features) <- c("index", "featureName")
+
+# add descriptive names to featureName Values
+features$featureName <- gsub('Acc',"Acceleration",features$featureName)
+features$featureName <- gsub('Gyro',"AngularVelocity",features$featureName)
+features$featureName <- gsub('Jerk',"JerkSignal",features$featureName)
+features$featureName <- gsub('Mag',"Magnitude",features$featureName)
+features$featureName <- gsub('^t',"TimeDomain.",features$featureName)
+features$featureName <- gsub('^f',"FrequencyDomain.",features$featureName)
+features$featureName <- gsub('-mean',".Mean",features$featureName)
+features$featureName <- gsub('-std',".StandardDeviation",features$featureName)
+
 colnames(activities) <- c("activityId", "activityName")
 
 colnames(trainX) <- features$featureName
@@ -50,7 +61,7 @@ for(i in 1:nrow(activities)) {
 # Requirement 2: Extract only the measurements on the mean and standard 
 # deviation for each measurement X dataSets
 ##########################################################################
-meanAndStdMeasurementCols <- grep("-(mean|std)\\(\\)", features$featureName)
+meanAndStdMeasurementCols <- grep("(Mean|.StandardDeviation)\\(\\)", features$featureName)
 testX <- testX[meanAndStdMeasurementCols]
 trainX <- trainX[meanAndStdMeasurementCols]
 
@@ -64,6 +75,9 @@ trainingData <- cbind(trainSubject, trainY, trainX)
 
 # bind rows from testData and trainingData
 finalDataSet <- rbind(testData, trainingData)
+
+# remove brackets from column names
+names(finalDataSet) <- gsub('\\(|\\)',"",names(finalDataSet))
 
 ##########################################################################
 # Requirement 5: create a second, independent tidy data set with the average 
